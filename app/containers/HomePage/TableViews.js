@@ -25,21 +25,21 @@ const LinkCellWrarpper = styled.a`
 `;
 
 export const TitleCell = props => {
-  const { cell, value } = props;
+  const { column, value } = props;
   return (
     <TitleWrrapper>
-      <span>{cell && cell != 'NULL' ? value : '-'}</span>
+      <span>{column && column != 'NULL' ? value : '-'}</span>
     </TitleWrrapper>
   );
 };
 
 export const ThumbnailCell = props => {
-  const { cell, value } = props;
+  const { column, value } = props;
   return <ThumbnailCellWrarpper className="img" src={value} />;
 };
 
 
 export const LinkCell = props => {
-    const { cell, value } = props;
+    const { column, value } = props;
     return <LinkCellWrarpper>{value}</LinkCellWrarpper>;
 }
