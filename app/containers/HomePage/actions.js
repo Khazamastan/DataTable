@@ -26,7 +26,7 @@ import {
  *
  * @return {object} An action object with a type of LOAD_SONGS
  */
-export function loadSongs() {
+export function fetchSongs() {
   return {
     type: LOAD_SONGS,
   };

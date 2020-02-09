@@ -6,20 +6,25 @@ import List from 'react-virtualized/dist/commonjs/List';
 import Cell from '../Cell';
 import TbodyWrapper from './Wrapper';
 
-const TableBody = props => {
-  const { data, columns, selectedRowIds, onSelectRow, setMyRef } = props;
+const TableBody = ({
+  data,
+  columns,
+  selectedRowIds,
+  onSelectRow,
+  setVirtualizerRef,
+  onRowClick,
+}) => {
   const columsCount = columns.length;
-  let myRef = React.createRef();
-  
+
   const rowRender = ({ index, isScrolling, key, style, parent }) => {
-    const { width} = parent.props;
+    const { width } = parent.props;
     const cellData = data[index];
     const isSelected = selectedRowIds[cellData.id];
     return (
       <div
         className="flex"
         key={key}
-        onClick={props.onRowClick(cellData)}
+        onClick={onRowClick(cellData)}
         style={style}
       >
         {columns.map(column => {
@@ -29,7 +34,7 @@ const TableBody = props => {
               key={index + columnKey}
               data={cellData}
               cell={column}
-              selectedRowIds ={selectedRowIds}
+              selectedRowIds={selectedRowIds}
               onSelectRow={onSelectRow}
               isSelected={isSelected}
               cellsCount={columsCount}
@@ -46,7 +51,7 @@ const TableBody = props => {
       <AutoSizer key={Math.random()}>
         {({ width }) => (
           <List
-            ref={ref => setMyRef(ref)}
+            ref={ref => setVirtualizerRef(ref)}
             height={20 * 60}
             rowHeight={60}
             rowCount={data.length}

@@ -2,9 +2,12 @@ import React from 'react';
 import CellHead from '../CellHead';
 import TheadWrapper from './Wrapper';
 
-const TableHead = props => {
-  debugger;
-  const { columns, onSelectAll, selectedRowsOriginal, allSelected } = props;
+const TableHead = ({
+  columns,
+  onSelectAll,
+  selectedRowsOriginal,
+  allSelected,
+}) => {
   const columsCount = columns.length;
   const headContent = (
     <div>
@@ -26,7 +29,7 @@ const TableHead = props => {
     </div>
   );
 
-  return <TheadWrapper>{headContent}</TheadWrapper>;
+  return <TheadWrapper key={Math.random()}>{headContent}</TheadWrapper>;
 };
 
 export default TableHead;

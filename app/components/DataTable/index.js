@@ -1,61 +1,53 @@
 import styled from 'styled-components';
 import React, { useState, useMemo, useEffect } from 'react';
+import _ from 'lodash';
 import TableWrapper from './TableWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
-import _ from 'lodash';
 
-const Table = props => {
-  const { columns, data } = props;
+const Table = ({ columns, data, onRowClick }) => {
   let noResultsConent;
-  const stateData = {
-    selectedRowIds: {},
-    allSelected: true,
-    selectedRowsOriginal: {},
-  };
-
-  const [selectedRowIds, setSelectedRowIds] = useState(
-    stateData.selectedRowIds,
-  );
-
-  const [allSelected, setAllSelected] = useState(allSelected);
-
+  let tableVirtualizerRef;
+  const [selectedRowIds, setSelectedRowIds] = useState({});
+  const [allSelected, setAllSelected] = useState(null);
   const getRowIsSelected = id => selectedRowIds[id];
 
   const selectRow = (row, all, status) => {
-    const selectedMap = {};
+    const selectedRowsMap = {};
     if (all) {
       data.forEach(row => {
-        selectedMap[row.id] = status;
+        selectedRowsMap[row.id] = status;
       });
       setAllSelected(status);
     } else {
       const { id } = row;
       const isSelected = getRowIsSelected(id);
-      selectedMap[id] = !isSelected;
+      selectedRowsMap[id] = !isSelected;
       setAllSelected(false);
     }
 
-    Object.assign(selectedRowIds, selectedMap);
+    Object.assign(selectedRowIds, selectedRowsMap);
     setSelectedRowIds(selectedRowIds);
-    myref && myref.forceUpdateGrid();
+    if (tableVirtualizerRef) {
+      tableVirtualizerRef.forceUpdateGrid();
+    }
   };
 
   const selectedRowsOriginal = useEffect(() => {
-    const selectedRowsOriginal = [];
+    const originalRowsData = [];
     data.forEach(row => {
       const isSelected = getRowIsSelected(row.id);
       if (isSelected) {
-        selectedRowsOriginal.push(row);
+        originalRowsData.push(row);
       }
     });
-    return selectedRowsOriginal;
+    return originalRowsData;
   }, [selectedRowIds]);
-  
-  let myref;
-  const setMyRef = (ref) => {
-    myref= ref;
-  }
+
+  const setVirtualizerRef = ref => {
+    tableVirtualizerRef = ref;
+  };
+
   if (!data.length) {
     noResultsConent = (
       <p className="no-results" key="only">
@@ -77,11 +69,10 @@ const Table = props => {
           />
           <TableBody
             columns={columns}
-            setMyRef={setMyRef}
-            onRowClick={props.onRowClick}
+            setVirtualizerRef={setVirtualizerRef}
+            onRowClick={onRowClick}
             selectedRowIds={selectedRowIds}
             onSelectRow={selectRow}
-            allSelected={allSelected}
             data={data}
           />
         </TableWrapper>

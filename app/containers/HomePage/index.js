@@ -29,22 +29,18 @@ import HomeWrapper from './HomeWrapper';
 
 import Section from './Section';
 import messages from './messages';
-import { loadSongs } from './actions';
+import { fetchSongs } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import data from '../../data/data.json';
 import 'react-virtualized/styles.css';
 const key = 'home';
 
-export function HomePage({ username, loading, error, photos, loadSongs }) {
+export function HomePage({loading, error, photos, fetchSongs }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
-
   useEffect(() => {
-    !loading && !photos && loadSongs();
+    !loading && !photos && fetchSongs();
   }, []);
-
-  const tableData = data.splice(0, 1000);
 
   const columns = [
     {
@@ -52,11 +48,6 @@ export function HomePage({ username, loading, error, photos, loadSongs }) {
       name: '',
       width: '40px',
     },
-    // {
-    //   key: 'id',
-    //   name: 'Id',
-    //   width: '60px',
-    // },
     {
       key: 'thumbnailUrl',
       name: '',
@@ -82,11 +73,14 @@ export function HomePage({ username, loading, error, photos, loadSongs }) {
       view: LinkCell,
     },
   ];
+
   const onRowClick = rowData => {
     // cellData.selected = true;
   };
   const onSelectRow = selectedRows => {
+
   };
+
   return (
     <article>
       <HomeWrapper>
@@ -143,8 +137,8 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    loadSongs: () => {
-      dispatch(loadSongs());
+    fetchSongs: () => {
+      dispatch(fetchSongs());
     },
   };
 }

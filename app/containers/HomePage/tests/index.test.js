@@ -10,7 +10,7 @@ import { browserHistory } from 'react-router-dom';
 
 import { HomePage, mapDispatchToProps } from '../index';
 import { changeUsername } from '../actions';
-import { loadSongs } from '../../App/actions';
+import { fetchSongs } from '../../App/actions';
 import configureStore from '../../../configureStore';
 
 describe('<HomePage />', () => {
@@ -101,11 +101,11 @@ describe('<HomePage />', () => {
         expect(result.onSubmitForm).toBeDefined();
       });
 
-      it('should dispatch loadSongs when called', () => {
+      it('should dispatch fetchSongs when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         result.onSubmitForm();
-        expect(dispatch).toHaveBeenCalledWith(loadSongs());
+        expect(dispatch).toHaveBeenCalledWith(fetchSongs());
       });
 
       it('should preventDefault if called with event', () => {
