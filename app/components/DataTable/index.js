@@ -5,14 +5,27 @@ import TableWrapper from './TableWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
 
-const Table = ({ columns, data, onRowClick }) => {
+const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   let noResultsConent;
   let tableVirtualizerRef;
+  let selectedRowsOriginal = [];
   const [selectedRowIds, setSelectedRowIds] = useState({});
   const [allSelected, setAllSelected] = useState(null);
   const getRowIsSelected = id => selectedRowIds[id];
 
-  const selectRow = (row, all, status) => {
+  const updateSelectedRowsOriginal = selectedRowIds => {
+    const originalRowsData = [];
+    data.forEach(row => {
+      const isSelected = getRowIsSelected(row.id);
+      if (isSelected) {
+        originalRowsData.push(row);
+      }
+    });
+    selectedRowsOriginal = originalRowsData;
+  };
+
+
+  const selectRowHandler = (row, all, status) => {
     const selectedRowsMap = {};
     if (all) {
       data.forEach(row => {
@@ -31,18 +44,10 @@ const Table = ({ columns, data, onRowClick }) => {
     if (tableVirtualizerRef) {
       tableVirtualizerRef.forceUpdateGrid();
     }
+    updateSelectedRowsOriginal(selectedRowIds);
+    onSelectRow(selectedRowIds, selectedRowsOriginal);
   };
 
-  const selectedRowsOriginal = useEffect(() => {
-    const originalRowsData = [];
-    data.forEach(row => {
-      const isSelected = getRowIsSelected(row.id);
-      if (isSelected) {
-        originalRowsData.push(row);
-      }
-    });
-    return originalRowsData;
-  }, [selectedRowIds]);
 
   const setVirtualizerRef = ref => {
     tableVirtualizerRef = ref;
@@ -58,12 +63,11 @@ const Table = ({ columns, data, onRowClick }) => {
 
   return (
     <div className="container">
-      {selectedRowsOriginal && selectedRowsOriginal.length}
       <div className="row">
         <TableWrapper>
           <TableHead
             columns={columns}
-            onSelectAll={selectRow}
+            onSelectAll={selectRowHandler}
             allSelected={allSelected}
             selectedRowsOriginal={selectedRowsOriginal}
           />
@@ -72,7 +76,7 @@ const Table = ({ columns, data, onRowClick }) => {
             setVirtualizerRef={setVirtualizerRef}
             onRowClick={onRowClick}
             selectedRowIds={selectedRowIds}
-            onSelectRow={selectRow}
+            onSelectRow={selectRowHandler}
             data={data}
           />
         </TableWrapper>
