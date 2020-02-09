@@ -38,6 +38,7 @@ const Table = props => {
 
     Object.assign(selectedRowIds, selectedMap);
     setSelectedRowIds(selectedRowIds);
+    console.log(selectedRowIds);
     myref && myref.forceUpdateGrid();
   };
 
@@ -51,7 +52,6 @@ const Table = props => {
     });
     return selectedRowsOriginal;
   }, [selectedRowIds]);
-  
   let myref;
   const setMyRef = (ref) => {
     myref= ref;

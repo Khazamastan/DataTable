@@ -3,7 +3,8 @@ import CellHead from '../CellHead';
 import TheadWrapper from './Wrapper';
 
 const TableHead = props => {
-  const { columns } = props;
+  debugger;
+  const { columns, onSelectAll, selectedRowsOriginal, allSelected } = props;
   const columsCount = columns.length;
   const headContent = (
     <div>
@@ -14,6 +15,9 @@ const TableHead = props => {
           <CellHead
             key={key}
             singeHeader={singleHeader}
+            allSelected={allSelected}
+            onSelectAll={onSelectAll}
+            selectedRowsOriginal={selectedRowsOriginal}
             cellsCount={columsCount}
             cell={column}
           />

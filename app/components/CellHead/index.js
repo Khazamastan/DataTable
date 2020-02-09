@@ -1,9 +1,15 @@
-import React from 'react';
+import React,  { useState }  from 'react';
 import CellHeadWrapper, { CheckBoxViewWrapper } from './Wrapper';
 
-const cellHeadView = (column, cell, columnKey, numeric) => {
+const cellHeadView = (column, cell, columnKey, numeric, props) => {
   const { name, key, headerView } = column;
   const HeaderView = headerView;
+
+  const [allSelected, setSelected] = useState(props.allSelected);
+
+  const toggleAllSelection = () => {
+    props.onSelectAll(null, 'all', !props.allSelected);
+  };
   if (HeaderView) {
     return <HeaderView cell={cell} value={value} columnKey={columnKey} />;
   }
@@ -11,7 +17,13 @@ const cellHeadView = (column, cell, columnKey, numeric) => {
     case 'checkbox':
       return (
         <CheckBoxViewWrapper>
-          <input type="checkbox" /> <span>&#x25BE;</span>
+          <input
+            checked={allSelected}
+            value={allSelected}
+            onChange={toggleAllSelection}
+            type="checkbox"
+          />{' '}
+          <span>&#x25BE;</span>
         </CheckBoxViewWrapper>
       );
     default:
@@ -29,7 +41,7 @@ const CellHead = props => {
       columnWidth={width}
       count={cellsCount}
     >
-      {cellHeadView(singeHeader, key, name, numeric)}
+      {cellHeadView(singeHeader, key, name, numeric, props)}
     </CellHeadWrapper>
   );
 };

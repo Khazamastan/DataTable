@@ -51,7 +51,6 @@ const Table = props => {
     });
     return selectedRowsOriginal;
   }, [selectedRowIds]);
-  
   let myref;
   const setMyRef = (ref) => {
     myref= ref;
