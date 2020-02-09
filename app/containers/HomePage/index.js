@@ -15,8 +15,6 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 
-import Input from 'components/Input';
-import Select from 'components/Select';
 import DataTable from 'components/DataTable';
 import LoadingIndicator from 'components/LoadingIndicator';
 import {
@@ -93,14 +91,6 @@ export function HomePage({loading, error, photos, fetchSongs }) {
               <h2>
                 <FormattedMessage {...messages.homeHeader} />
               </h2>
-              <p className="clearfix">
-                {/* <Input
-              type="text"
-              placeholder="Search here"
-              className="search"
-              onChange={onChangeQuery}
-            /> */}
-              </p>
             </div>
             <div className="table-container">
               {!loading && photos && photos.length ? (

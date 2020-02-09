@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.5;
     color: #383737;
     outline: 0;
+    font-size: 14px;
   }
 
   body {
