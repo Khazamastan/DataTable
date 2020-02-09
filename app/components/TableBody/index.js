@@ -18,13 +18,13 @@ const TableBody = ({
 
   const rowRender = ({ index, isScrolling, key, style, parent }) => {
     const { width } = parent.props;
-    const cellData = data[index];
-    const isSelected = selectedRowIds[cellData.id];
+    const rowData = data[index];
+    const isSelected = selectedRowIds[rowData.id];
     return (
       <div
         className="flex"
         key={key}
-        onClick={onRowClick(cellData)}
+        onClick={onRowClick(rowData)}
         style={style}
       >
         {columns.map(column => {
@@ -32,12 +32,12 @@ const TableBody = ({
           return (
             <Cell
               key={index + columnKey}
-              data={cellData}
-              cell={column}
+              rowData={rowData}
+              column={column}
               selectedRowIds={selectedRowIds}
               onSelectRow={onSelectRow}
               isSelected={isSelected}
-              cellsCount={columsCount}
+              columsCount={columsCount}
               i={index}
             />
           );

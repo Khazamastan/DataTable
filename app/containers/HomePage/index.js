@@ -45,30 +45,30 @@ export function HomePage({loading, error, photos, fetchSongs }) {
   const columns = [
     {
       key: 'checkbox',
-      name: '',
+      label: '',
       width: '40px',
     },
     {
       key: 'thumbnailUrl',
-      name: '',
+      label: '',
       width: '60px',
       view: ThumbnailCell,
     },
     {
       key: 'title',
-      name: 'Title',
+      label: 'Title',
       width: '35%',
       view: TitleCell,
     },
     {
       key: 'albumId',
-      name: 'Album ID',
+      label: 'Album ID',
       width: '20%',
       numeric: true,
     },
     {
       key: 'url',
-      name: 'URL',
+      label: 'URL',
       width: '350px',
       view: LinkCell,
     },

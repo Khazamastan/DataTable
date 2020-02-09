@@ -1,17 +1,15 @@
-import React,  { useState }  from 'react';
+import React, { useState } from 'react';
 import CellHeadWrapper, { CheckBoxViewWrapper } from './Wrapper';
 
-const cellHeadView = (column, cell, columnKey, numeric, props) => {
-  const { name, key, headerView } = column;
+const CellHeadView = ({ column, allSelected, onSelectAll }) => {
+  const { label, key, headerView } = column;
   const HeaderView = headerView;
-
-  const [allSelected, setSelected] = useState(props.allSelected);
-
   const toggleAllSelection = () => {
-    props.onSelectAll(null, 'all', !props.allSelected);
+    onSelectAll(null, 'all', !allSelected);
   };
+
   if (HeaderView) {
-    return <HeaderView cell={cell} value={value} columnKey={columnKey} />;
+    return <HeaderView column={column} value={label} />;
   }
   switch (key) {
     case 'checkbox':
@@ -19,7 +17,7 @@ const cellHeadView = (column, cell, columnKey, numeric, props) => {
         <CheckBoxViewWrapper>
           <input
             checked={allSelected}
-            value={allSelected}
+            value={allSelected || ''}
             onChange={toggleAllSelection}
             type="checkbox"
           />{' '}
@@ -27,21 +25,21 @@ const cellHeadView = (column, cell, columnKey, numeric, props) => {
         </CheckBoxViewWrapper>
       );
     default:
-      return <p>{name}</p>;
+      return <p>{label}</p>;
   }
 };
 
 const CellHead = props => {
-  const { singeHeader, cellsCount } = props;
-  const { key, width, numeric, name } = singeHeader;
+  const { key, width, numeric } = props.column;
+  const { columnCount } = props;
   const isCheckBox = key == 'checkbox';
   return (
     <CellHeadWrapper
       className={`${numeric ? 'numeric' : ''} ${isCheckBox ? 'checkbox' : ''}`}
       columnWidth={width}
-      count={cellsCount}
+      count={columnCount}
     >
-      {cellHeadView(singeHeader, key, name, numeric, props)}
+      <CellHeadView {...props} />
     </CellHeadWrapper>
   );
 };
