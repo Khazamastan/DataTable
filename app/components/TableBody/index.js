@@ -18,26 +18,29 @@ const TableBody = ({
 
   const rowRender = ({ index, isScrolling, key, style, parent }) => {
     const { width } = parent.props;
-    const cellData = data[index];
-    const isSelected = selectedRowIds[cellData.id];
+    const rowData = data[index];
+    const isSelected = selectedRowIds[rowData.id];
+    const rowClickHandler = $event => {
+      $event.stopPropagation();
+      $event.nativeEvent.stopImmediatePropagation();
+      if ($event.type && String($event.target.type) !== 'checkbox') {
+        onRowClick(rowData);
+      }
+      return false;
+    };
     return (
-      <div
-        className="flex"
-        key={key}
-        onClick={onRowClick(cellData)}
-        style={style}
-      >
+      <div className="flex" key={key} onClick={rowClickHandler} style={style}>
         {columns.map(column => {
           const columnKey = column.key;
           return (
             <Cell
               key={index + columnKey}
-              data={cellData}
-              cell={column}
+              rowData={rowData}
+              column={column}
               selectedRowIds={selectedRowIds}
               onSelectRow={onSelectRow}
               isSelected={isSelected}
-              cellsCount={columsCount}
+              columsCount={columsCount}
               i={index}
             />
           );

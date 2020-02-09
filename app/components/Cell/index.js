@@ -1,40 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import CellWrapper from './Wrapper';
 
-const CellInnerView = props => {
-  const { data, cell, key, onSelectRow, selectedRowIds} = props;
-  let isSelected = selectedRowIds[data.id] || false;
-  const value = data[cell.key];
-  const CellView = cell.view;
-  const toggleRowSelection = () => {
-    onSelectRow(data, null);
+const CellInnerView = ({ rowData, column, onSelectRow, selectedRowIds }) => {
+  const isSelected = selectedRowIds[rowData.id] || false;
+  const {key, view} = column;
+  const value = rowData[key];
+  const CellView = view;
+  const toggleRowSelection = ($event) => {
+    $event.stopPropagation();
+    $event.nativeEvent.stopImmediatePropagation();
+    onSelectRow(rowData, null);
+    return false;
   };
+
   if (CellView) {
-    return <CellView cell={cell} value={value} columnKey={cell.key} />;
+    return <CellView column={column} value={value}/>;
   }
-  switch (cell.key) {
+
+  switch (key) {
     case 'checkbox':
       return (
         <input
           checked={isSelected}
           value={isSelected}
-          name={data.id}
+          name={rowData.id}
           onChange={toggleRowSelection}
           type="checkbox"
         />
       );
     default:
-      return <p>{cell && cell != 'NULL' ? value : '-'}</p>;
+      return <p>{column && column != 'NULL' ? value : '-'}</p>;
   }
 };
-const Cell = props => {
-  const { data, cell, i, cellsCount, onSelectRow, isSelected } = props;
-  const { key, width, numeric } = cell;
+const Cell = (props) => {
+  const { columsCount } = props;
+  const { width, numeric } = props.column;
   return (
     <CellWrapper
       className={`${numeric ? 'numeric' : ''}`}
       columnWidth={width}
-      count={cellsCount}
+      count={columsCount}
     >
       <CellInnerView {...props} />
     </CellWrapper>
