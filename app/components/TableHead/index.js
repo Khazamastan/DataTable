@@ -7,6 +7,8 @@ const TableHead = ({
   onSelectAll,
   selectedRowsOriginal,
   allSelected,
+  onChangeSortField,
+  sortOrder
 }) => {
   const columsCount = columns.length;
   const headContent = (
@@ -21,6 +23,8 @@ const TableHead = ({
             selectedRowsOriginal={selectedRowsOriginal}
             columnCount={columsCount}
             column={column}
+            sortOrder={sortOrder}
+            onChangeSortField={onChangeSortField}
           />
         );
       })}

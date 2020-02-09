@@ -57,18 +57,20 @@ export function HomePage({loading, error, photos, fetchSongs }) {
       label: 'Title',
       width: '35%',
       view: TitleCell,
+      sort: 1
     },
     {
       key: 'albumId',
       label: 'Album ID',
       width: '20%',
       numeric: true,
+      sort: 1
     },
     {
       key: 'url',
       label: 'URL',
-      width: '350px',
       view: LinkCell,
+      sort: 1
     },
   ];
 

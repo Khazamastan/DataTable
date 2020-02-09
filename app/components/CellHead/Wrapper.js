@@ -16,13 +16,21 @@ const Wrapper = styled.div`
         text-align: left;
         font-size: 13px;
         font-weight: bold;
+        &.sort{
+            cursor: pointer;
+        }
+        .sort-icon{
+            font-size: 8px;
+        }
     }
+
 `;
 
 export const CheckBoxViewWrapper = styled.button`
     display: inline-flex;
     align-items: center;
-    border-bottom: 2px solid #ececec;
+    border: 2px solid #ececec;
+    background: transparent;
     border-radius: 3px;
     padding: 3px 6px; 
     outline: 0px;

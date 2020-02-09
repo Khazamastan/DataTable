@@ -11,9 +11,11 @@ const TitleWrrapper = styled.p`
   }
 `;
 
+const IMG_SIZE = 50
 const ThumbnailCellWrarpper = styled.img`
   padding: 2px;
-  max-height: 50px;
+  width: ${IMG_SIZE}px;
+  height: ${IMG_SIZE}px;
   border: 1px solid #ececec;
 `;
 

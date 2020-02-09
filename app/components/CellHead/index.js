@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CellHeadWrapper, { CheckBoxViewWrapper } from './Wrapper';
 
-const CellHeadView = ({ column, allSelected, onSelectAll }) => {
+const CellHeadView = ({ column, allSelected, onSelectAll, sortOrder, toggleSort }) => {
   const { label, key, headerView } = column;
   const HeaderView = headerView;
   const toggleAllSelection = () => {
@@ -25,21 +25,39 @@ const CellHeadView = ({ column, allSelected, onSelectAll }) => {
         </CheckBoxViewWrapper>
       );
     default:
-      return <p>{label}</p>;
+      return (
+        <p className={column.sort ? 'sort' : ''} onClick={toggleSort}>
+          {label}{' '}
+          {column.sort ? (
+            sortOrder[key] === 'ASC' ? (
+              <span className="sort-icon">&#x25BC;</span>
+            ) : (
+              <span className="sort-icon">&#x25B2;</span>
+            )
+          ) : (
+            ''
+          )}
+        </p>
+      );
   }
 };
 
 const CellHead = props => {
-  const { key, width, numeric } = props.column;
-  const { columnCount } = props;
+  const { columnCount, column } = props;
+  const { key, width, numeric } = column;
   const isCheckBox = key == 'checkbox';
+
+  const toggleSort = () => {
+    props.onChangeSortField(column);
+  };
+
   return (
     <CellHeadWrapper
       className={`${numeric ? 'numeric' : ''} ${isCheckBox ? 'checkbox' : ''}`}
       columnWidth={width}
       count={columnCount}
     >
-      <CellHeadView {...props} />
+      <CellHeadView toggleSort={toggleSort} {...props} />
     </CellHeadWrapper>
   );
 };

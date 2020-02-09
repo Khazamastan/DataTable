@@ -4,7 +4,7 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 
 import Cell from '../Cell';
-import TbodyWrapper from './Wrapper';
+import TbodyWrapper, {TRWrapper} from './Wrapper';
 
 const TableBody = ({
   data,
@@ -29,7 +29,7 @@ const TableBody = ({
       return false;
     };
     return (
-      <div className="flex" key={key} onClick={rowClickHandler} style={style}>
+      <TRWrapper key={key} onClick={rowClickHandler} style={style}>
         {columns.map(column => {
           const columnKey = column.key;
           return (
@@ -45,7 +45,7 @@ const TableBody = ({
             />
           );
         })}
-      </div>
+      </TRWrapper>
     );
   };
 

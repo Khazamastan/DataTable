@@ -4,8 +4,10 @@ import _ from 'lodash';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import Select from 'components/Select';
+import { createFilter } from 'utils/filter';
+import { createSorter } from 'utils/sort';
 import TableWrapper from './TableWrapper';
-import SearchWrapper from "./SearchWrapper"
+import SearchWrapper from './SearchWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
 
@@ -13,13 +15,16 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   let noResultsConent;
   let tableVirtualizerRef;
   let selectedRowsOriginal = [];
+  const sortOrderState = {};
   const [selectedRowIds, setSelectedRowIds] = useState({});
+  const [sortOrder, setSortOrder] = useState(sortOrderState);
+  const [filteredData, setFilteredData] = useState(data);
   const [allSelected, setAllSelected] = useState(null);
   const getRowIsSelected = id => selectedRowIds[id];
 
   const updateSelectedRowsOriginal = selectedRowIds => {
     const originalRowsData = [];
-    data.forEach(row => {
+    filteredData.forEach(row => {
       const isSelected = getRowIsSelected(row.id);
       if (isSelected) {
         originalRowsData.push(row);
@@ -31,7 +36,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   const selectRowHandler = (row, all, status) => {
     const selectedRowsMap = {};
     if (all) {
-      data.forEach(row => {
+      filteredData.forEach(row => {
         selectedRowsMap[row.id] = status;
       });
       setAllSelected(status);
@@ -55,7 +60,22 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
     tableVirtualizerRef = ref;
   };
 
-  const onChangeQuery = () => {};
+  const onChangeQuery = $event => {
+    const searchQuery = $event.target.value;
+    const filteredData = data.filter(createFilter(...['title', searchQuery]));
+    setFilteredData(filteredData);
+    tableVirtualizerRef.forceUpdateGrid();
+  };
+
+  const onChangeSortField = field => {
+    const order = sortOrder[field.key] === 'ASC' ? 'DESC' : 'ASC';
+
+    const filteredData = data.sort(createSorter(...[field.key, order]));
+    setSortOrder(Object.assign({}, sortOrder, { [field.key]: order }));
+    setFilteredData(filteredData);
+    tableVirtualizerRef.forceUpdateGrid();
+  };
+
   if (!data.length) {
     noResultsConent = (
       <p className="no-results" key="only">
@@ -64,11 +84,19 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
     );
   }
 
+  if (!filteredData.length) {
+    noResultsConent = (
+      <p className="no-results" key="only">
+        No Results for the current filter
+      </p>
+    );
+  }
+
   return (
     <div className="container">
       <TableWrapper>
         <SearchWrapper>
-          <Button handleRoute={true}>Filter</Button>
+          <Button handleRoute={() => {}}>Filter</Button>
           <Input
             type="text"
             placeholder="Search here"
@@ -76,10 +104,15 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
             onChange={onChangeQuery}
           />
         </SearchWrapper>
+        <p>
+          Showing <strong>{filteredData.length}</strong>
+        </p>
         <TableHead
           columns={columns}
           onSelectAll={selectRowHandler}
           allSelected={allSelected}
+          sortOrder={sortOrder}
+          onChangeSortField={onChangeSortField}
           selectedRowsOriginal={selectedRowsOriginal}
         />
         <TableBody
@@ -88,7 +121,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
           onRowClick={onRowClick}
           selectedRowIds={selectedRowIds}
           onSelectRow={selectRowHandler}
-          data={data}
+          data={filteredData}
         />
       </TableWrapper>
       {noResultsConent}
