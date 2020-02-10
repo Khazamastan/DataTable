@@ -15,11 +15,22 @@ const TableBody = ({
   onRowClick,
 }) => {
   const columsCount = columns.length;
+  let listRef;
 
-  const rowRender = ({ index, isScrolling, key, style, parent }) => {
-    const { width } = parent.props;
+  const passVirtualizerRef = (ref) =>{
+    listRef = ref;
+    setVirtualizerRef(ref);
+  }
+
+  const onResize = () => {
+    listRef.forceUpdateGrid();
+  }
+  
+  const rowRender = ({ index, key, style }) => {
     const rowData = data[index];
     const isSelected = selectedRowIds[rowData.id];
+
+
     const rowClickHandler = $event => {
       $event.stopPropagation();
       $event.nativeEvent.stopImmediatePropagation();
@@ -51,10 +62,10 @@ const TableBody = ({
 
   return (
     <TbodyWrapper>
-      <AutoSizer key={Math.random()}>
+      <AutoSizer key={Math.random()} disableHeight onResize={onResize}>
         {({ width }) => (
           <List
-            ref={ref => setVirtualizerRef(ref)}
+            ref={ref => passVirtualizerRef(ref)}
             height={20 * 60}
             rowHeight={60}
             rowCount={data.length}
