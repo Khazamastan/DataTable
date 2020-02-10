@@ -6,28 +6,27 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     line-height: 1.5;
-    color: #383737;
+    color: ${props => props.theme.textColor};
     outline: 0;
     font-size: 14px;
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family:${(props) => props.theme.fontFamily};
   }
 
   body.fontLoaded {
-    font-family: 'Roboto', 'Roboto', sans-serif;
+    font-family: ${(props) => props.theme.fontFamily};
   }
 
   #app {
-    background-color: #fafafa;
     min-height: 100%;
     min-width: 100%;
   }
 
   p,
   label {
-    font-family: 'Roboto', 'Roboto', sans-serif;
+    font-family:${(props) => props.theme.fontFamily};
     line-height: 1.5em;
   }
   .ReactVirtualized__List{

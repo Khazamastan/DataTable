@@ -8,11 +8,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family:${(props) => props.theme.fontFamily};
   }
 
   body.fontLoaded {
-    font-family: 'Roboto', 'Roboto', sans-serif;
+    font-family: 'Roboto',${(props) => props.theme.fontFamily};
   }
 
   #app {
@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 
   p,
   label {
-    font-family:'Roboto', 'Roboto', sans-serif;
+    font-family:'Roboto',${(props) => props.theme.fontFamily};
     line-height: 1.5em;
   }
 `;

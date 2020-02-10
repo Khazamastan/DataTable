@@ -10,12 +10,12 @@ const buttonStyles = css`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family:${(props) => props.theme.fontFamily};
   font-size: 12px;
   font-weight: 500;
   background: transparent;
   &:active {
-    background: #41addd;
+    background: ${(props) => props.theme.primaryColor};
     color: #fff;
   }
 `;

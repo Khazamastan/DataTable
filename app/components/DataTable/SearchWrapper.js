@@ -11,7 +11,7 @@ const SearchWrapper = styled.div`
     flex-basis: 100px;
     > button{
       width: 100%;
-      border: 1px solid #dcdcdc;
+      border: 1px solid ${props => props.theme.borderColor};
       border-radius: 3px 0 0 3px;
     }
   }

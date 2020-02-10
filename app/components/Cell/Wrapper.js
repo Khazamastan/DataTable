@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     }
     p{
         margin : 0;
-        color: #000;
+        color: ${(props) => props.theme.secondaryColor};
         font-size: 13px;
     }
 `;

@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 export const CheckBoxViewWrapper = styled.button`
     display: inline-flex;
     align-items: center;
-    border: 2px solid #ececec;
+    border: 2px solid ${props => props.theme.borderColor};
     background: transparent;
     border-radius: 3px;
     padding: 3px 6px; 

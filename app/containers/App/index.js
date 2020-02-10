@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import NavBar from 'containers/NavBar/Loadable';
 
 import GlobalStyle from '../../global-styles';
 
@@ -27,6 +28,7 @@ export default function App() {
       <Helmet titleTemplate="%s - Table" defaultTitle="Table">
         <meta name="description" content="A Table" />
       </Helmet>
+      <NavBar></NavBar>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="" component={NotFoundPage} />

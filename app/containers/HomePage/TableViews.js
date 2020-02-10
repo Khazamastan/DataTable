@@ -4,7 +4,7 @@ import React from 'react';
 const TitleWrrapper = styled.p`
   span {
     font-weight: 500;
-    color: #2196f3;
+    color:  ${(props) => props.theme.primaryColor};
   }
   &:first-letter {
     text-transform: capitalize;
@@ -16,12 +16,12 @@ const ThumbnailCellWrarpper = styled.img`
   padding: 2px;
   width: ${IMG_SIZE}px;
   height: ${IMG_SIZE}px;
-  border: 1px solid #ececec;
+  border: 1px solid  ${(props) => props.theme.borderColor};
 `;
 
 
 const LinkCellWrarpper = styled.a`
-    color: #2196f3;
+    color:  ${(props) => props.theme.primaryColor};
     text-decoration: none;
     font-size: 12px;
 `;
