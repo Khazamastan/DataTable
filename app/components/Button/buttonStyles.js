@@ -11,11 +11,12 @@ const buttonStyles = css`
   cursor: pointer;
   outline: 0;
   font-family: ${props => props.theme.fontFamily};
+  border: 1px solid ${props => props.theme.borderColor};
   font-size: 12px;
   font-weight: 500;
   background: transparent;
   &:active {
-    background: ${props => props.theme.primaryColor};
+    background: transparent;
     color: #fff;
   }
 `;
