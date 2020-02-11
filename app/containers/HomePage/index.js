@@ -8,7 +8,7 @@
  * This is the first thing users see of our App, at the '/' route
  */
 
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -21,13 +21,15 @@ import { useInjectSaga } from 'utils/injectSaga';
 
 import DataTable from 'components/DataTable';
 import LoadingIndicator from 'components/LoadingIndicator';
+import Button from 'components/Button';
+
 import {
   makeSelectSongs,
   makeSelectSongsLoading,
   makeSelectSongsError,
 } from './selectors';
 import { TitleCell, ThumbnailCell, LinkCell } from './TableViews';
-import HomeWrapper from './HomeWrapper';
+import HomeWrapper, { HeaderWrapper } from './HomeWrapper';
 
 import Section from './Section';
 import messages from './messages';
@@ -42,8 +44,14 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
   useInjectSaga({ key, saga });
   useEffect(() => {
     !loading && !photos && fetchSongsData();
-  }, []);
+    photos && setPhotosList(photos);
+  }, [photos]);
 
+  const [photosList, setPhotosList] = useState(photos);
+
+  const loadMoreData = () => {
+    setPhotosList([...photosList, ...photos]);
+  };
   const columns = [
     {
       key: 'checkbox',
@@ -93,15 +101,18 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
         </Helmet>
         <div>
           <Section>
-            <div>
+            <HeaderWrapper>
               <h2>
                 <FormattedMessage {...messages.tableHeader} />
               </h2>
-            </div>
+              <Button handleRoute={loadMoreData}>
+                <FormattedMessage {...messages.loadMoreData} />
+              </Button>
+            </HeaderWrapper>
             <div className="table-container">
-              {!loading && photos && photos.length ? (
+              {!loading && photosList && photosList.length ? (
                 <DataTable
-                  data={photos}
+                  data={photosList}
                   columns={columns}
                   onRowClick={onRowClickHandler}
                   onSelectRow={onSelectRowHandler}
