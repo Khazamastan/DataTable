@@ -7,10 +7,11 @@ import { render } from 'react-testing-library';
 import { IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router-dom';
-
-import { HomePage } from '../index';
-
+import LanguageProvider from 'containers/LanguageProvider';
+import { fetchSongs } from '../actions';
+import { HomePage, mapDispatchToProps } from '../index';
 import configureStore from '../../../configureStore';
+import { translationMessages } from '../../../i18n';
 
 describe('<HomePage />', () => {
   let store;
@@ -24,9 +25,11 @@ describe('<HomePage />', () => {
       container: { firstChild },
     } = render(
       <Provider store={store}>
-        <IntlProvider locale="en">
-          <HomePage loading={false} error={false} photos={[]} />
-        </IntlProvider>
+        <LanguageProvider messages={translationMessages}>
+          <IntlProvider locale="en" defaultLocale="en">
+            <HomePage loading={false} error={false} photos={[]} />
+          </IntlProvider>
+        </LanguageProvider>
       </Provider>,
     );
     expect(firstChild).toMatchSnapshot();
@@ -35,13 +38,16 @@ describe('<HomePage />', () => {
   describe('mapDispatchToProps', () => {
     describe('fetchPhotos', () => {
       it('should be injected', () => {
-        // const dispatch = jest.fn();
-        // const result = mapDispatchToProps(dispatch);
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        expect(result.fetchSongsData).toBeDefined();
       });
 
       it('should dispatch fetchPhotos when called', () => {
-        // const dispatch = jest.fn();
-        // const result = mapDispatchToProps(dispatch);
+        const dispatch = jest.fn();
+        const result = mapDispatchToProps(dispatch);
+        result.fetchSongsData();
+        expect(dispatch).toHaveBeenCalledWith(fetchSongs());
       });
     });
   });
