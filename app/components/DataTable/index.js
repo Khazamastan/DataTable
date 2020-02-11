@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import { createFilter } from 'utils/filter';
@@ -19,8 +19,17 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   const [sortOrder, setSortOrder] = useState(sortOrderState);
   const [filteredData, setFilteredData] = useState(data);
   const [allSelected, setAllSelected] = useState(null);
+  useEffect(() => {
+    setFilteredData(data);
+    refreshTableView();
+  }, [data]);
   const getRowIsSelected = id => selectedRowIds[id];
 
+  const refreshTableView = () => {
+    if (tableVirtualizerRef) {
+      tableVirtualizerRef.forceUpdateGrid();
+    }
+  };
   const updateSelectedRowsOriginal = () => {
     const originalRowsData = [];
     filteredData.forEach(row => {
@@ -48,11 +57,9 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
 
     Object.assign(selectedRowIds, selectedRowsMap);
     setSelectedRowIds(selectedRowIds);
-    if (tableVirtualizerRef) {
-      tableVirtualizerRef.forceUpdateGrid();
-    }
     updateSelectedRowsOriginal(selectedRowIds);
     onSelectRow(selectedRowIds, selectedRowsOriginal);
+    refreshTableView();
   };
 
   const setVirtualizerRef = ref => {
@@ -63,7 +70,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
     const searchQuery = $event.target.value;
     const filteredData = data.filter(createFilter(...['title', searchQuery]));
     setFilteredData(filteredData);
-    tableVirtualizerRef.forceUpdateGrid();
+    refreshTableView();
   };
 
   const onChangeSortField = field => {
@@ -72,7 +79,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
     const filteredData = data.sort(createSorter(...[field.key, order]));
     setSortOrder(Object.assign({}, sortOrder, { [field.key]: order }));
     setFilteredData(filteredData);
-    tableVirtualizerRef.forceUpdateGrid();
+    refreshTableView();
   };
 
   if (!data.length) {
