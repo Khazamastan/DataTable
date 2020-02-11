@@ -8,8 +8,12 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.HomePage';
 
 export default defineMessages({
-  homeHeader: {
-    id: `${scope}.home.header`,
-    defaultMessage: 'Table Component!',
+  tableHeader: {
+    id: `${scope}.home.tableHeader`,
+    tableHeader: 'Data Table Component!',
+  },
+  filterText: {
+    id: `${scope}.home.filter`,
+    filter: 'Filter!',
   },
 });

@@ -95,7 +95,7 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
           <Section>
             <div>
               <h2>
-                <FormattedMessage {...messages.homeHeader} />
+                <FormattedMessage {...messages.tableHeader} />
               </h2>
             </div>
             <div className="table-container">

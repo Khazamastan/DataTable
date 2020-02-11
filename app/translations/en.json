@@ -1,3 +1,4 @@
 {
-  "boilerplate.containers.HomePage.tryme.header": "Try me!"
+  "boilerplate.containers.HomePage.home.tableHeader": "Data Table Component!",
+  "boilerplate.containers.HomePage.home.filter": "Filter!"
 }
