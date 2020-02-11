@@ -16,4 +16,8 @@ export default defineMessages({
     id: `${scope}.home.filter`,
     filter: 'Filter!',
   },
+  loadMoreData: {
+    id: `${scope}.home.loadMoreData`,
+    loadMoreData: 'LOAD MORE DATA',
+  },
 });

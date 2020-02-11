@@ -1,4 +1,5 @@
 {
   "boilerplate.containers.HomePage.home.tableHeader": "Data Table Component!",
-  "boilerplate.containers.HomePage.home.filter": "Filter!"
+  "boilerplate.containers.HomePage.home.filter": "Filter!",
+  "boilerplate.containers.HomePage.home.loadMoreData": "LOAD MORE DATA"
 }
