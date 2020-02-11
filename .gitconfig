@@ -1,0 +1,21 @@
+	excludesfile = /Users/kbellamkon001/.gitignore_global
+	ignorecase = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /private/var/folders/3z/8ktyr7s17r13rh24qd3jn8mw0000gn/T/AppTranslocation/0BA45954-D528-425B-B55D-38D35C84A846/d/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = khajamastan 
+	email = khazamastan@pwc.com
+[commit]
+	template = /Users/kbellamkon001/.stCommitMsg
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[http]
+	sslVerify = false
+	postBuffer = 15728640
