@@ -31,7 +31,7 @@ const TableHead = ({
     </div>
   );
 
-  return <TheadWrapper key={Math.random()}>{headContent}</TheadWrapper>;
+  return <TheadWrapper>{headContent}</TheadWrapper>;
 };
 
 export default TableHead;

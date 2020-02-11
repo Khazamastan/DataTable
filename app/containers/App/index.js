@@ -18,7 +18,7 @@ import NavBar from 'containers/NavBar/Loadable';
 import GlobalStyle from '../../global-styles';
 
 const AppWrapper = styled.div`
-  margin: 0 auto;
+  margin: 62px auto 0 auto;
   min-height: 100%;
 `;
 

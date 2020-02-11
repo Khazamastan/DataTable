@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
-import { Column, Table } from 'react-virtualized';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import List from 'react-virtualized/dist/commonjs/List';
-
+import { WindowScroller, List, AutoSizer } from 'react-virtualized';
 import Cell from '../Cell';
-import TbodyWrapper, {TRWrapper} from './Wrapper';
+import TbodyWrapper, { TRWrapper } from './Wrapper';
 
 const TableBody = ({
   data,
@@ -17,20 +14,19 @@ const TableBody = ({
   const columsCount = columns.length;
   let listRef;
 
-  const passVirtualizerRef = (ref) =>{
+  const passVirtualizerRef = ref => {
     listRef = ref;
+    window.listEl = ref;
     setVirtualizerRef(ref);
-  }
+  };
 
   const onResize = () => {
-    listRef.forceUpdateGrid();
-  }
-  
-  const rowRender = ({ index, key, style }) => {
+    listRef && listRef.forceUpdateGrid();
+  };
+
+  const rowRenderer = ({ index, key, style, isScrolling, isVisible }) => {
     const rowData = data[index];
     const isSelected = selectedRowIds[rowData.id];
-
-
     const rowClickHandler = $event => {
       $event.stopPropagation();
       $event.nativeEvent.stopImmediatePropagation();
@@ -39,6 +35,7 @@ const TableBody = ({
       }
       return false;
     };
+
     return (
       <TRWrapper key={key} onClick={rowClickHandler} style={style}>
         {columns.map(column => {
@@ -62,19 +59,31 @@ const TableBody = ({
 
   return (
     <TbodyWrapper>
-      <AutoSizer key={Math.random()} disableHeight onResize={onResize}>
-        {({ width }) => (
-          <List
-            ref={ref => passVirtualizerRef(ref)}
-            height={20 * 60}
-            rowHeight={60}
-            rowCount={data.length}
-            rowRenderer={rowRender}
-            width={width}
-            data={Math.random()}
-          />
+      <WindowScroller>
+        {({ height, isScrolling, registerChild, onChildScroll, scrollTop }) => (
+          <div>
+            <AutoSizer disableHeight onResize={onResize}>
+              {({ width }) => (
+                <div ref={registerChild}>
+                  <List
+                    autoHeight
+                    ref={ref => passVirtualizerRef(ref)}
+                    height={height}
+                    rowHeight={60}
+                    isScrolling={isScrolling}
+                    overscanRowCount={2}
+                    onScroll={onChildScroll}
+                    scrollTop={scrollTop}
+                    rowCount={data.length}
+                    rowRenderer={rowRenderer}
+                    width={width}
+                  />
+                </div>
+              )}
+            </AutoSizer>
+          </div>
         )}
-      </AutoSizer>
+      </WindowScroller>
     </TbodyWrapper>
   );
 };
