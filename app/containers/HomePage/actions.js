@@ -15,11 +15,7 @@
  *    }
  */
 
-import {
-  LOAD_SONGS,
-  LOAD_SONGS_SUCCESS,
-  LOAD_SONGS_ERROR,
-} from './constants';
+import { LOAD_SONGS, LOAD_SONGS_SUCCESS, LOAD_SONGS_ERROR } from './constants';
 
 /**
  * Load the songs, this action starts the request saga
@@ -42,7 +38,7 @@ export function fetchSongs() {
 export function songsLoaded(songs) {
   return {
     type: LOAD_SONGS_SUCCESS,
-    songs
+    songs,
   };
 }
 
@@ -51,7 +47,7 @@ export function songsLoaded(songs) {
  *
  * @param  {object} error The error
  *
-* @return {object}       An action object with a type of LOAD_SONGS_ERROR passing the error
+ * @return {object}       An action object with a type of LOAD_SONGS_ERROR passing the error
  */
 export function songsLoadingError(error) {
   return {

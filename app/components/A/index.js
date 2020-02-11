@@ -8,7 +8,7 @@ const A = styled.a`
   color: ${props => props.theme.primaryColor};
 
   &:hover {
-    color: ${props => props.theme.anchor.hover};
+    color: ${props => props.theme.anchorHover};
   }
 `;
 

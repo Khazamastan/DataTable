@@ -28,7 +28,7 @@ export default function App() {
       <Helmet titleTemplate="%s - Table" defaultTitle="Table">
         <meta name="description" content="A Table" />
       </Helmet>
-      <NavBar></NavBar>
+      <NavBar />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="" component={NotFoundPage} />

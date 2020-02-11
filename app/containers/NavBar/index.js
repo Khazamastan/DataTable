@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import NavWrapper from './Wrapper';
-const NavBar = ({}) => (
+const NavBar = () => (
   <NavWrapper>
     <ul className="nav">
       <li>

@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/prop-types */
+import React from 'react';
 import CellHeadWrapper, { CheckBoxViewWrapper } from './Wrapper';
 
-const CellHeadView = ({ column, allSelected, onSelectAll, sortOrder, toggleSort }) => {
+const CellHeadView = ({
+  column,
+  allSelected,
+  onSelectAll,
+  sortOrder,
+  toggleSort,
+}) => {
   const { label, key, headerView } = column;
   const HeaderView = headerView;
   const toggleAllSelection = () => {
@@ -26,6 +35,7 @@ const CellHeadView = ({ column, allSelected, onSelectAll, sortOrder, toggleSort 
       );
     default:
       return (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <p className={column.sort ? 'sort' : ''} onClick={toggleSort}>
           {label}{' '}
           {column.sort ? (
@@ -45,7 +55,7 @@ const CellHeadView = ({ column, allSelected, onSelectAll, sortOrder, toggleSort 
 const CellHead = props => {
   const { columnCount, column } = props;
   const { key, width, numeric } = column;
-  const isCheckBox = key == 'checkbox';
+  const isCheckBox = key === 'checkbox';
 
   const toggleSort = () => {
     props.onChangeSortField(column);

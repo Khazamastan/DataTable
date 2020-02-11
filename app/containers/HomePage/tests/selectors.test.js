@@ -1,14 +1,15 @@
-import { selectHome } from '../selectors';
+import { selectPhotos } from '../selectors';
 
-describe('selectHome', () => {
+describe('selectPhotos', () => {
   it('should select the home state', () => {
     const homeState = {
-      userData: {},
+      loading: false,
+      error: false,
+      songs: false,
     };
     const mockedState = {
       home: homeState,
     };
-    expect(selectHome(mockedState)).toEqual(homeState);
+    expect(selectPhotos(mockedState)).toEqual(homeState);
   });
 });
-

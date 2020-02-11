@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> should render and match the snapshot 1`] = `
-<div>
+<ForwardRef>
+  <HelmetWrapper
+    defaultTitle="Table"
+    defer={true}
+    encodeSpecialCharacters={true}
+    titleTemplate="%s - Table"
+  >
+    <meta
+      content="A Table"
+      name="description"
+    />
+  </HelmetWrapper>
+  <Unknown />
   <Switch>
     <Route
       component={[Function]}
@@ -10,8 +22,9 @@ exports[`<App /> should render and match the snapshot 1`] = `
     />
     <Route
       component={[Function]}
+      path=""
     />
   </Switch>
   <GlobalStyleComponent />
-</div>
+</ForwardRef>
 `;

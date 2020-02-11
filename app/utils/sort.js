@@ -1,4 +1,4 @@
-import { memoizee } from "./memoizee"
+import { memoizee } from './memoizee';
 const dirMap = {
   // greater-than
   gt: { asc: 1, desc: -1 },
@@ -20,8 +20,9 @@ const doSort = (A, B, property, direction = 'ASC') => {
 };
 
 const createSorter = (...args) => {
+  let newArgs = args;
   if (typeof args[0] === 'string') {
-    args = [
+    newArgs = [
       {
         direction: args[1],
         property: args[0],
@@ -32,7 +33,7 @@ const createSorter = (...args) => {
   return (A, B) => {
     let ret = 0;
 
-    args.some(sorter => {
+    newArgs.some(sorter => {
       const { property, direction = 'ASC' } = sorter;
       const memoDoSort = memoizee(doSort);
       const value = memoDoSort(A, B, property, direction);

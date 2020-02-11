@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import CellWrapper from './Wrapper';
 
 const CellInnerView = ({ rowData, column, onSelectRow, selectedRowIds }) => {
   const isSelected = selectedRowIds[rowData.id] || false;
-  const {key, view} = column;
+  const { key, view } = column;
   const value = rowData[key];
   const CellView = view;
-  const toggleRowSelection = ($event) => {
+  const toggleRowSelection = $event => {
     $event.stopPropagation();
     $event.nativeEvent.stopImmediatePropagation();
     onSelectRow(rowData, null);
@@ -14,7 +15,7 @@ const CellInnerView = ({ rowData, column, onSelectRow, selectedRowIds }) => {
   };
 
   if (CellView) {
-    return <CellView column={column} value={value}/>;
+    return <CellView column={column} value={value} />;
   }
 
   switch (key) {
@@ -29,10 +30,10 @@ const CellInnerView = ({ rowData, column, onSelectRow, selectedRowIds }) => {
         />
       );
     default:
-      return <p>{column && column != 'NULL' ? value : '-'}</p>;
+      return <p>{column && column !== 'NULL' ? value : '-'}</p>;
   }
 };
-const Cell = (props) => {
+const Cell = props => {
   const { columsCount } = props;
   const { width, numeric } = props.column;
   return (

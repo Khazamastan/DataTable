@@ -11,5 +11,5 @@ export default defineMessages({
   homeHeader: {
     id: `${scope}.home.header`,
     defaultMessage: 'Table Component!',
-  }
+  },
 });

@@ -10,12 +10,12 @@ const buttonStyles = css`
   user-select: none;
   cursor: pointer;
   outline: 0;
-  font-family:${(props) => props.theme.fontFamily};
+  font-family: ${props => props.theme.fontFamily};
   font-size: 12px;
   font-weight: 500;
   background: transparent;
   &:active {
-    background: ${(props) => props.theme.primaryColor};
+    background: ${props => props.theme.primaryColor};
     color: #fff;
   }
 `;

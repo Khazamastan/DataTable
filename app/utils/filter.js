@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-multi-assign */
 const doFilter = (item, filter) => {
   let { value } = filter;
 

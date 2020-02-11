@@ -12,11 +12,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family:${(props) => props.theme.fontFamily};
+    font-family:${props => props.theme.fontFamily};
   }
 
   body.fontLoaded {
-    font-family: ${(props) => props.theme.fontFamily};
+    font-family: ${props => props.theme.fontFamily};
   }
 
   #app {
@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
 
   p,
   label {
-    font-family:${(props) => props.theme.fontFamily};
+    font-family:${props => props.theme.fontFamily};
     line-height: 1.5em;
   }
   .ReactVirtualized__List{

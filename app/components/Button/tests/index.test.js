@@ -8,7 +8,7 @@ import { fireEvent, render } from 'react-testing-library';
 import Button from '../index';
 
 const handleRoute = () => {};
-const href = 'http://mxstbr.com';
+const href = 'http://site.com';
 const children = <h1>Test</h1>;
 const renderComponent = (props = {}) =>
   render(

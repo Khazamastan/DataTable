@@ -14,7 +14,6 @@ import { LOAD_SONGS_SUCCESS, LOAD_SONGS, LOAD_SONGS_ERROR } from './constants';
 export const initialState = {
   loading: false,
   error: false,
-  currentUser: false,
   songs: false,
 };
 

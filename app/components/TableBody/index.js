@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-expressions */
+import React from 'react';
 import { WindowScroller, List, AutoSizer } from 'react-virtualized';
 import Cell from '../Cell';
 import TbodyWrapper, { TRWrapper } from './Wrapper';
@@ -24,7 +26,7 @@ const TableBody = ({
     listRef && listRef.forceUpdateGrid();
   };
 
-  const rowRenderer = ({ index, key, style, isScrolling, isVisible }) => {
+  const rowRenderer = ({ index, key, style }) => {
     const rowData = data[index];
     const isSelected = selectedRowIds[rowData.id];
     const rowClickHandler = $event => {

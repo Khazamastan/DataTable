@@ -1,3 +1,7 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-console */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /*
  * HomePage
  *
@@ -33,11 +37,11 @@ import saga from './saga';
 import 'react-virtualized/styles.css';
 const key = 'home';
 
-export function HomePage({loading, error, photos, fetchSongs }) {
+export function HomePage({ loading, error, photos, fetchSongsData }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   useEffect(() => {
-    !loading && !photos && fetchSongs();
+    !loading && !photos && fetchSongsData();
   }, []);
 
   const columns = [
@@ -57,20 +61,20 @@ export function HomePage({loading, error, photos, fetchSongs }) {
       label: 'Title',
       width: '35%',
       view: TitleCell,
-      sort: 1
+      sort: 1,
     },
     {
       key: 'albumId',
       label: 'Album ID',
       width: '20%',
       numeric: true,
-      sort: 1
+      sort: 1,
     },
     {
       key: 'url',
       label: 'URL',
       view: LinkCell,
-      sort: 1
+      sort: 1,
     },
   ];
 
@@ -129,7 +133,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    fetchSongs: () => {
+    fetchSongsData: () => {
       dispatch(fetchSongs());
     },
   };

@@ -4,9 +4,7 @@ const theme = {
   primaryColor: '#1692f3',
   textColor: '#383737',
   borderColor: '#ececec',
-  anchor: {
-    hover: '#6cc0e5',
-  },
+  anchorHover: '#6cc0e5',
 };
 
 export default theme;

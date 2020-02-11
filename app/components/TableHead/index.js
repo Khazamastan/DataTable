@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import CellHead from '../CellHead';
 import TheadWrapper from './Wrapper';
@@ -8,7 +9,7 @@ const TableHead = ({
   selectedRowsOriginal,
   allSelected,
   onChangeSortField,
-  sortOrder
+  sortOrder,
 }) => {
   const columsCount = columns.length;
   const headContent = (

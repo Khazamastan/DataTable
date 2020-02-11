@@ -1,9 +1,8 @@
-import styled from 'styled-components';
-import React, { useState, useMemo, useEffect } from 'react';
-import _ from 'lodash';
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import Select from 'components/Select';
 import { createFilter } from 'utils/filter';
 import { createSorter } from 'utils/sort';
 import TableWrapper from './TableWrapper';
@@ -22,7 +21,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   const [allSelected, setAllSelected] = useState(null);
   const getRowIsSelected = id => selectedRowIds[id];
 
-  const updateSelectedRowsOriginal = selectedRowIds => {
+  const updateSelectedRowsOriginal = () => {
     const originalRowsData = [];
     filteredData.forEach(row => {
       const isSelected = getRowIsSelected(row.id);

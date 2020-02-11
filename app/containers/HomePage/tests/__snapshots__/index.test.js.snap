@@ -2,66 +2,70 @@
 
 exports[`<HomePage /> should render and match the snapshot 1`] = `
 <article>
-  <div>
-    <section
-      class="Section-sc-1eulrsm-0 CenteredSection-sc-6zy0wx-0 imGCbL"
-    >
-      <h2
-        class="H2-egphza-0 HsCXl"
+  <div
+    class="HomeWrapper-sc-1oq0eh2-0 gvdHZa"
+  >
+    <div>
+      <section
+        class="Section-vxhas0-0 pfTbc"
       >
-        <span>
-          Start your next react project in seconds
-        </span>
-      </h2>
-      <p>
-        <span>
-          A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices
-        </span>
-      </p>
-    </section>
-    <section
-      class="Section-sc-1eulrsm-0 eTEsZl"
-    >
-      <h2
-        class="H2-egphza-0 HsCXl"
-      >
-        <span>
-          Try me!
-        </span>
-      </h2>
-      <form
-        class="Form-dmhz4x-0 ZClLh"
-      >
-        <label
-          for="username"
-        >
-          <span>
-            Show Github songs by
-          </span>
-          <span
-            class="AtPrefix-sc-1suuq8o-0 fvrDQr"
-          >
+        <div>
+          <h2>
             <span>
-              @
+              Table Component!
             </span>
-          </span>
-          <input
-            class="Input-sc-19rkjmi-0 gyJaEd"
-            id="username"
-            placeholder="mxstbr"
-            type="text"
-            value=""
-          />
-        </label>
-      </form>
-      <div
-        class="Wrapper-sc-1umgotm-0 laCwDT"
-      >
-        <ul
-          class="Ul-mwnq6h-0 jcxXFy"
-        />
-      </div>
-    </section>
+          </h2>
+        </div>
+        <div
+          class="table-container"
+        >
+          <div
+            class="table-loader"
+          >
+            <div
+              class="Wrapper-xhscmt-0 cWTKnX"
+            >
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 iDJcAz"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 coneJe"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 fjiYpJ"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 fUjJYa"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 jULPQS"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 zrQIG"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 dyDcbW"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 kqRhGU"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 etCvTi"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 gaDLOU"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 gOsyYj"
+              />
+              <div
+                class="Circle__CirclePrimitive-sc-1clhsvv-0 jISVZi"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </article>
 `;
