@@ -19,10 +19,12 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   const [sortOrder, setSortOrder] = useState(sortOrderState);
   const [filteredData, setFilteredData] = useState(data);
   const [allSelected, setAllSelected] = useState(null);
+
   useEffect(() => {
     setFilteredData(data);
     refreshTableView();
   }, [data]);
+
   const getRowIsSelected = id => selectedRowIds[id];
 
   const refreshTableView = () => {
@@ -85,12 +87,12 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
   if (!data.length) {
     noResultsConent = (
       <p className="no-results" key="only">
-        No Results
+        No Data
       </p>
     );
   }
 
-  if (!filteredData.length) {
+  if (data.length && !filteredData.length) {
     noResultsConent = (
       <p className="no-results" key="only">
         No Results for the current filter
@@ -110,7 +112,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
             onChange={onChangeQuery}
           />
         </SearchWrapper>
-        <p>
+        <p className="showing-text">
           Showing <strong>{filteredData.length}</strong>
         </p>
         <TableHead

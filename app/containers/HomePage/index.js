@@ -105,9 +105,13 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
               <h2>
                 <FormattedMessage {...messages.tableHeader} />
               </h2>
-              <Button handleRoute={loadMoreData}>
-                <FormattedMessage {...messages.loadMoreData} />
-              </Button>
+              {!loading && photosList ? (
+                <Button handleRoute={loadMoreData}>
+                  <FormattedMessage {...messages.loadMoreData} />
+                </Button>
+              ) : (
+                ''
+              )}
             </HeaderWrapper>
             <div className="table-container">
               {!loading && photosList && photosList.length ? (
