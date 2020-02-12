@@ -38,7 +38,7 @@ const CellHeadView = ({
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <p className={column.sort ? 'sort' : ''} onClick={toggleSort}>
           {label}{' '}
-          {column.sort ? (
+          {column.sort && sortOrder[key] ? (
             sortOrder[key] === 'ASC' ? (
               <span className="sort-icon">&#x25BC;</span>
             ) : (

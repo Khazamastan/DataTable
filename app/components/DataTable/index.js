@@ -75,9 +75,9 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
 
   const onChangeSortField = field => {
     const order = sortOrder[field.key] === 'ASC' ? 'DESC' : 'ASC';
-
+    const sortOrderState = { [field.key]: order };
     const filteredData = data.sort(createSorter(...[field.key, order]));
-    setSortOrder(Object.assign({}, sortOrder, { [field.key]: order }));
+    setSortOrder(Object.assign({}, sortOrderState));
     setFilteredData(filteredData);
     refreshTableView();
   };
