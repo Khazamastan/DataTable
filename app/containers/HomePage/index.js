@@ -62,8 +62,8 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
     {
       key: 'thumbnailUrl',
       label: '',
-      width: '60px',
-      minWidth: '60px',
+      width: '70px',
+      minWidth: '70px',
       view: ThumbnailCell,
     },
     {
