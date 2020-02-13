@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import React from 'react';
 
 const TitleWrrapper = styled.p`
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   span {
     font-weight: 500;
     color: ${props => props.theme.primaryColor};
@@ -24,6 +28,10 @@ const LinkCellWrarpper = styled.a`
   color: ${props => props.theme.primaryColor};
   text-decoration: none;
   font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 export const TitleCell = props => {
