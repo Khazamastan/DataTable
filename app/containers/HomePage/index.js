@@ -76,7 +76,7 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
     {
       key: 'albumId',
       label: 'Album ID',
-      width: '400px',
+      width: '450px',
       numeric: true,
       sort: 1,
     },
@@ -123,7 +123,7 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
                   columns={columns}
                   onRowClick={onRowClickHandler}
                   onSelectRow={onSelectRowHandler}
-                  layout="fixed" 
+                  // layout="fixed" 
                 />
               ) : (
                 <div className="table-loader">
