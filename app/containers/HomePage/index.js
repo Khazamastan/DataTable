@@ -76,7 +76,7 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
     {
       key: 'albumId',
       label: 'Album ID',
-      width: '450px',
+      width: '400px',
       numeric: true,
       sort: 1,
     },
