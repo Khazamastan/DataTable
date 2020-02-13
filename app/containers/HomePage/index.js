@@ -56,31 +56,34 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
     {
       key: 'checkbox',
       label: '',
-      width: '40px',
+      width: '50px',
+      minWidth: '50px',
     },
     {
       key: 'thumbnailUrl',
       label: '',
       width: '60px',
+      minWidth: '60px',
       view: ThumbnailCell,
     },
     {
       key: 'title',
       label: 'Title',
-      width: '35%',
+      width: '500px',
       view: TitleCell,
       sort: 1,
     },
     {
       key: 'albumId',
       label: 'Album ID',
-      width: '20%',
+      width: '300px',
       numeric: true,
       sort: 1,
     },
     {
       key: 'url',
       label: 'URL',
+      width: '400px',
       view: LinkCell,
       sort: 1,
     },
@@ -120,6 +123,7 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
                   columns={columns}
                   onRowClick={onRowClickHandler}
                   onSelectRow={onSelectRowHandler}
+                  // layout="fixed" 
                 />
               ) : (
                 <div className="table-loader">

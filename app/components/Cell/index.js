@@ -34,12 +34,14 @@ const CellInnerView = ({ rowData, column, onSelectRow, selectedRowIds }) => {
   }
 };
 const Cell = props => {
-  const { columsCount } = props;
-  const { width, numeric } = props.column;
+  const { columsCount, layout } = props;
+  const { width, numeric, minWidth } = props.column;
   return (
     <CellWrapper
+      layout={layout}
       className={`${numeric ? 'numeric' : ''}`}
       columnWidth={width}
+      minWidth={minWidth}
       count={columsCount}
     >
       <CellInnerView {...props} />

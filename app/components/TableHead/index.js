@@ -10,6 +10,7 @@ const TableHead = ({
   allSelected,
   onChangeSortField,
   sortOrder,
+  layout,
 }) => {
   const columsCount = columns.length;
   const headContent = (
@@ -20,6 +21,7 @@ const TableHead = ({
           <CellHead
             key={key}
             allSelected={allSelected}
+            layout={layout}
             onSelectAll={onSelectAll}
             selectedRowsOriginal={selectedRowsOriginal}
             columnCount={columsCount}

@@ -29,8 +29,9 @@ const GlobalStyle = createGlobalStyle`
     font-family:${props => props.theme.fontFamily};
     line-height: 1.5em;
   }
-  .ReactVirtualized__List{
+  .ReactVirtualized__List, .ReactVirtualized__Grid__innerScrollContainer{
     outline: 0;
+    overflow: initial !important;
   }
 `;
 

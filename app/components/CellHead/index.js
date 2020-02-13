@@ -56,8 +56,8 @@ const CellHeadView = ({
 };
 
 const CellHead = props => {
-  const { columnCount, column } = props;
-  const { key, width, numeric } = column;
+  const { columnCount, column, layout } = props;
+  const { key, width, numeric, minWidth } = column;
   const isCheckBox = key === 'checkbox';
 
   const toggleSort = () => {
@@ -66,8 +66,10 @@ const CellHead = props => {
 
   return (
     <CellHeadWrapper
+      layout={layout}
       className={`${numeric ? 'numeric' : ''} ${isCheckBox ? 'checkbox' : ''}`}
       columnWidth={width}
+      minWidth={minWidth}
       count={columnCount}
     >
       <CellHeadView toggleSort={toggleSort} {...props} />

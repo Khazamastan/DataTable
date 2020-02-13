@@ -12,6 +12,7 @@ const TableBody = ({
   onSelectRow,
   setVirtualizerRef,
   onRowClick,
+  layout,
 }) => {
   const columsCount = columns.length;
   let listRef;
@@ -47,6 +48,7 @@ const TableBody = ({
               key={index + columnKey}
               rowData={rowData}
               column={column}
+              layout={layout}
               selectedRowIds={selectedRowIds}
               onSelectRow={onSelectRow}
               isSelected={isSelected}
@@ -57,6 +59,12 @@ const TableBody = ({
         })}
       </TRWrapper>
     );
+  };
+
+  const getWidth = () => {
+    if (listRef) {
+      return listRef.offsetWidth;
+    }
   };
 
   return (
@@ -75,10 +83,11 @@ const TableBody = ({
                     isScrolling={isScrolling}
                     overscanRowCount={2}
                     onScroll={onChildScroll}
+                    layout="horizontal"
                     scrollTop={scrollTop}
                     rowCount={data.length}
                     rowRenderer={rowRenderer}
-                    width={width}
+                    width={getWidth() || width}
                   />
                 </div>
               )}

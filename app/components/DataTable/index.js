@@ -10,7 +10,7 @@ import SearchWrapper from './SearchWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
 
-const Table = ({ columns, data, onRowClick, onSelectRow }) => {
+const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
   let noResultsConent;
   let tableVirtualizerRef;
   let selectedRowsOriginal = [];
@@ -102,19 +102,19 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
 
   return (
     <div className="container">
+      <SearchWrapper>
+        <Button handleRoute={() => {}}>Filter</Button>
+        <Input
+          type="text"
+          placeholder="Search here"
+          className="search"
+          onChange={onChangeQuery}
+        />
+      </SearchWrapper>
+      <p className="showing-text">
+        Showing <strong>{filteredData.length}</strong>
+      </p>
       <TableWrapper>
-        <SearchWrapper>
-          <Button handleRoute={() => {}}>Filter</Button>
-          <Input
-            type="text"
-            placeholder="Search here"
-            className="search"
-            onChange={onChangeQuery}
-          />
-        </SearchWrapper>
-        <p className="showing-text">
-          Showing <strong>{filteredData.length}</strong>
-        </p>
         <TableHead
           columns={columns}
           onSelectAll={selectRowHandler}
@@ -122,6 +122,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
           sortOrder={sortOrder}
           onChangeSortField={onChangeSortField}
           selectedRowsOriginal={selectedRowsOriginal}
+          layout={layout}
         />
         <TableBody
           columns={columns}
@@ -130,6 +131,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow }) => {
           selectedRowIds={selectedRowIds}
           onSelectRow={selectRowHandler}
           data={filteredData}
+          layout={layout}
         />
       </TableWrapper>
       {noResultsConent}
