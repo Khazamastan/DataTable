@@ -1,7 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-expressions */
 import React from 'react';
-import { WindowScroller, List, AutoSizer } from 'react-virtualized';
+import {
+  WindowScroller,
+  List,
+  AutoSizer,
+  InfiniteLoader,
+} from 'react-virtualized';
+import TRLoadingPlaceholder from './rowLooaderPlacholder';
 import Cell from '../Cell';
 import TbodyWrapper, { TRWrapper } from './Wrapper';
 
@@ -9,14 +15,16 @@ const TableBody = ({
   data,
   columns,
   selectedRowIds,
+  totalCount,
   onSelectRow,
   setVirtualizerRef,
   onRowClick,
   layout,
+  loadMoreRows,
+  loading,
 }) => {
   const columsCount = columns.length;
   let listRef;
-
   const passVirtualizerRef = ref => {
     listRef = ref;
     window.listEl = ref;
@@ -27,8 +35,15 @@ const TableBody = ({
     listRef && listRef.forceUpdateGrid();
   };
 
-  const rowRenderer = ({ index, key, style }) => {
+  const rowRenderer = ({ index, key, style, parent }) => {
     const rowData = data[index];
+    if (!rowData) {
+      return (
+        <div style={style} key={key}>
+          <TRLoadingPlaceholder width={parent.props.width} />
+        </div>
+      );
+    }
     const isSelected = selectedRowIds[rowData.id];
     const rowClickHandler = $event => {
       $event.stopPropagation();
@@ -65,7 +80,18 @@ const TableBody = ({
     if (listRef) {
       return listRef.offsetWidth;
     }
+    return 0;
   };
+
+  let remoteRowCount = 0;
+  if (data) {
+    if (data && totalCount <= data.length) {
+      remoteRowCount = totalCount;
+    } else {
+      remoteRowCount = data.length + 1;
+    }
+  }
+  const isRowLoaded = ({ index }) => !loading && !!data[index];
 
   return (
     <TbodyWrapper>
@@ -75,20 +101,29 @@ const TableBody = ({
             <AutoSizer disableHeight onResize={onResize}>
               {({ width }) => (
                 <div ref={registerChild}>
-                  <List
-                    autoHeight
-                    ref={ref => passVirtualizerRef(ref)}
-                    height={height}
-                    rowHeight={60}
-                    isScrolling={isScrolling}
-                    overscanRowCount={2}
-                    onScroll={onChildScroll}
-                    layout="horizontal"
-                    scrollTop={scrollTop}
-                    rowCount={data.length}
-                    rowRenderer={rowRenderer}
-                    width={getWidth() || width}
-                  />
+                  <InfiniteLoader
+                    isRowLoaded={isRowLoaded}
+                    loadMoreRows={loadMoreRows}
+                    rowCount={remoteRowCount}
+                  >
+                    {({ onRowsRendered }) => (
+                      <List
+                        autoHeight
+                        ref={ref => passVirtualizerRef(ref)}
+                        height={height}
+                        rowHeight={60}
+                        rowCount={remoteRowCount}
+                        onRowsRendered={onRowsRendered}
+                        isScrolling={isScrolling}
+                        overscanRowCount={20}
+                        onScroll={onChildScroll}
+                        layout="horizontal"
+                        scrollTop={scrollTop}
+                        rowRenderer={rowRenderer}
+                        width={getWidth() || width}
+                      />
+                    )}
+                  </InfiniteLoader>
                 </div>
               )}
             </AutoSizer>

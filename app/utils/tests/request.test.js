@@ -28,7 +28,7 @@ describe('request', () => {
       request('/thisurliscorrect')
         .catch(done)
         .then(json => {
-          expect(json.hello).toBe('world');
+          expect(json.data.hello).toBe('world');
           done();
         });
     });

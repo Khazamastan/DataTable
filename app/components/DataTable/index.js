@@ -3,14 +3,25 @@
 import React, { useState, useEffect } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
-import { createFilter } from 'utils/filter';
 import { createSorter } from 'utils/sort';
+import PropTypes from 'prop-types';
 import TableWrapper from './TableWrapper';
 import SearchWrapper from './SearchWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
 
-const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
+const Table = ({
+  columns,
+  data,
+  onRowClick,
+  loading,
+  onSelectRow,
+  layout,
+  onSearch,
+  totalCount,
+  loadMoreRows,
+  query,
+}) => {
   let noResultsConent;
   let tableVirtualizerRef;
   let selectedRowsOriginal = [];
@@ -67,11 +78,9 @@ const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
   const setVirtualizerRef = ref => {
     tableVirtualizerRef = ref;
   };
-
   const onChangeQuery = $event => {
     const searchQuery = $event.target.value;
-    const filteredData = data.filter(createFilter(...['title', searchQuery]));
-    setFilteredData(filteredData);
+    onSearch(searchQuery);
     refreshTableView();
   };
 
@@ -84,7 +93,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
     refreshTableView();
   };
 
-  if (!data.length) {
+  if (!data || !filteredData) {
     noResultsConent = (
       <p className="no-results" key="only">
         No Data
@@ -92,7 +101,7 @@ const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
     );
   }
 
-  if (data.length && !filteredData.length) {
+  if (data && data.length && !filteredData.length) {
     noResultsConent = (
       <p className="no-results" key="only">
         No Results for the current filter
@@ -106,13 +115,14 @@ const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
         <Button handleRoute={() => {}}>Filter</Button>
         <Input
           type="text"
+          value={query.search}
           placeholder="Search here"
           className="search"
           onChange={onChangeQuery}
         />
       </SearchWrapper>
       <p className="showing-text">
-        Showing <strong>{filteredData.length}</strong>
+        Showing <strong>{(filteredData && filteredData.length) || 0}</strong>
       </p>
       <TableWrapper>
         <TableHead
@@ -127,16 +137,33 @@ const Table = ({ columns, data, onRowClick, onSelectRow, layout }) => {
         <TableBody
           columns={columns}
           setVirtualizerRef={setVirtualizerRef}
+          loadMoreRows={loadMoreRows}
+          totalCount={totalCount}
           onRowClick={onRowClick}
           selectedRowIds={selectedRowIds}
           onSelectRow={selectRowHandler}
           data={filteredData}
+          loading={loading}
+          query={query}
           layout={layout}
         />
       </TableWrapper>
       {noResultsConent}
     </div>
   );
+};
+
+Table.propTypes = {
+  columns: PropTypes.oneOfType([PropTypes.array]),
+  data: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  onRowClick: PropTypes.oneOfType([PropTypes.func]),
+  loading: PropTypes.oneOfType([PropTypes.bool]),
+  onSelectRow: PropTypes.oneOfType([PropTypes.func]),
+  layout: PropTypes.oneOfType([PropTypes.string]),
+  onSearch: PropTypes.oneOfType([PropTypes.func]),
+  totalCount: PropTypes.oneOfType([PropTypes.number]),
+  loadMoreRows: PropTypes.oneOfType([PropTypes.func]),
+  query: PropTypes.oneOfType([PropTypes.object]),
 };
 
 export default Table;

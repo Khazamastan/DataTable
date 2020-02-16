@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import styled from 'styled-components';
 const Wrapper = styled.div`
   flex-basis: ${props =>
@@ -6,11 +7,9 @@ const Wrapper = styled.div`
     props.columnWidth ? (props.layout === 'fixed' ? 0 : 1) : 1};
   flex-shrink: ${props =>
     props.columnWidth ? (props.layout === 'fixed' ? 0 : 1) : 1};
-  
-  min-width: ${props =>
-    props.minWidth ? props.minWidth : props.width
-  };
-  
+
+  min-width: ${props => (props.minWidth ? props.minWidth : props.width)};
+
   max-width: 100%;
   text-align: left;
   padding: 4px 10px;

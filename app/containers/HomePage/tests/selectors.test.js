@@ -1,15 +1,12 @@
-import { selectPhotos } from '../selectors';
+import { selectSongs } from '../selectors';
+import { initialState } from '../reducer';
 
-describe('selectPhotos', () => {
+describe('selectSongs', () => {
   it('should select the home state', () => {
-    const homeState = {
-      loading: false,
-      error: false,
-      songs: false,
-    };
+    const homeState = initialState;
     const mockedState = {
       home: homeState,
     };
-    expect(selectPhotos(mockedState)).toEqual(homeState);
+    expect(selectSongs(mockedState)).toEqual(homeState);
   });
 });

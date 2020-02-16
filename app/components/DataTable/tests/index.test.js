@@ -31,6 +31,9 @@ const renderComponent = (props = {}) =>
   render(
     <DataTable
       data={props.data}
+      query={{}}
+      loading={null}
+      loadMoreRows={() => {}}
       columns={props.columns}
       onRowClick={props.onRowClickHandler}
       onSelectRow={props.onSelectRowHandler}
@@ -54,6 +57,10 @@ describe('<DataTable />', () => {
             <DataTable
               columns={[]}
               data={[]}
+              query={{}}
+              loading={null}
+              loadMoreRows={() => {}}
+              totalCount={0}
               onRowClick={() => {}}
               onSelectRow={() => {}}
             />
@@ -66,6 +73,7 @@ describe('<DataTable />', () => {
 
   describe('test No data case', () => {
     describe('shoud show No Data Text', () => {
+      sampleState.data = null;
       const { container } = renderComponent(sampleState);
       expect(container.querySelector('.no-results')).toBeDefined();
       expect(container.querySelector('.no-results').textContent).toEqual(

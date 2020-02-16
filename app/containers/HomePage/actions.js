@@ -15,7 +15,13 @@
  *    }
  */
 
-import { LOAD_SONGS, LOAD_SONGS_SUCCESS, LOAD_SONGS_ERROR } from './constants';
+import {
+  LOAD_SONGS,
+  LOAD_SONGS_SUCCESS,
+  LOAD_SONGS_ERROR,
+  CHANGE_QUERY,
+  CHANGE_PAGE,
+} from './constants';
 
 /**
  * Load the songs, this action starts the request saga
@@ -35,10 +41,11 @@ export function fetchSongs() {
  *
  * @return {object}      An action object with a type of LOAD_SONGS_SUCCESS passing the songs
  */
-export function songsLoaded(songs) {
+export function songsLoaded(songs, total) {
   return {
     type: LOAD_SONGS_SUCCESS,
     songs,
+    total,
   };
 }
 
@@ -53,5 +60,19 @@ export function songsLoadingError(error) {
   return {
     type: LOAD_SONGS_ERROR,
     error,
+  };
+}
+
+export function onChangeQuery(query) {
+  return {
+    type: CHANGE_QUERY,
+    query,
+  };
+}
+
+export function onChangePage(page) {
+  return {
+    type: CHANGE_PAGE,
+    page,
   };
 }

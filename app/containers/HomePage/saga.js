@@ -2,21 +2,25 @@
  * Gets the songs of the user from Github
  */
 
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 import request from 'utils/request';
-import { LOAD_SONGS } from './constants';
+import { LOAD_SONGS, CHANGE_QUERY, CHANGE_PAGE } from './constants';
 import { songsLoaded, songsLoadingError } from './actions';
+import { makeSelectQuery } from './selectors';
 
 /**
- * Photos request/response handler
+ * Songs request/response handler
  */
-export function* getPhotos() {
-  const requestURL = `https://jsonplaceholder.typicode.com/photos`;
+export function* getSongs() {
+  const query = yield select(makeSelectQuery());
+  const requestURL = `http://localhost:3004/songs?q=${
+    query.search
+  }&_start=${query.page * 100}&_end=${(query.page + 1) * 100}`;
 
   try {
     // Call our request helper (see 'utils/request')
-    const songs = yield call(request, requestURL);
-    yield put(songsLoaded(songs));
+    const response = yield call(request, requestURL);
+    yield put(songsLoaded(response.data, response.count));
   } catch (err) {
     yield put(songsLoadingError(err));
   }
@@ -25,10 +29,12 @@ export function* getPhotos() {
 /**
  * Root saga manages watcher lifecycle
  */
-export default function* photosData() {
-  // Watches for LOAD_SONGS actions and calls getPhotos when one comes in.
+export default function* songsData() {
+  // Watches for LOAD_SONGS actions and calls getSongs when one comes in.
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(LOAD_SONGS, getPhotos);
+  yield takeLatest(CHANGE_PAGE, getSongs);
+  yield takeLatest(LOAD_SONGS, getSongs);
+  yield takeLatest(CHANGE_QUERY, getSongs);
 }

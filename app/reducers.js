@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import history from 'utils/history';
-import photosReducer from 'containers/HomePage/reducer';
+import songsReducer from 'containers/HomePage/reducer';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 
 /**
@@ -14,7 +14,7 @@ import languageProviderReducer from 'containers/LanguageProvider/reducer';
  */
 export default function createReducer(injectedReducers = {}) {
   const rootReducer = combineReducers({
-    photos: photosReducer,
+    songs: songsReducer,
     language: languageProviderReducer,
     router: connectRouter(history),
     ...injectedReducers,

@@ -27,7 +27,14 @@ describe('<HomePage />', () => {
       <Provider store={store}>
         <LanguageProvider messages={translationMessages}>
           <IntlProvider locale="en" defaultLocale="en">
-            <HomePage loading={false} error={false} photos={[]} />
+            <HomePage
+              loading={false}
+              error={false}
+              query={{}}
+              loadMoreRows={() => {}}
+              totalCount={0}
+              songs={[]}
+            />
           </IntlProvider>
         </LanguageProvider>
       </Provider>,
@@ -36,14 +43,14 @@ describe('<HomePage />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    describe('fetchPhotos', () => {
+    describe('fetchSongs', () => {
       it('should be injected', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         expect(result.fetchSongsData).toBeDefined();
       });
 
-      it('should dispatch fetchPhotos when called', () => {
+      it('should dispatch fetchSongs when called', () => {
         const dispatch = jest.fn();
         const result = mapDispatchToProps(dispatch);
         result.fetchSongsData();

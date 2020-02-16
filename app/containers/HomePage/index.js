@@ -22,40 +22,64 @@ import { useInjectSaga } from 'utils/injectSaga';
 import DataTable from 'components/DataTable';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Button from 'components/Button';
-
 import {
+  makeSelectQuery,
   makeSelectSongs,
   makeSelectSongsLoading,
   makeSelectSongsError,
+  makeSelectTotal,
 } from './selectors';
+
 import { TitleCell, ThumbnailCell, LinkCell } from './TableViews';
 import HomeWrapper, { HeaderWrapper } from './HomeWrapper';
 
 import Section from './Section';
 import messages from './messages';
-import { fetchSongs } from './actions';
+import { fetchSongs, onChangeQuery, onChangePage } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import 'react-virtualized/styles.css';
 const key = 'home';
 
-export function HomePage({ loading, error, photos, fetchSongsData }) {
+export function HomePage({
+  loading,
+  error,
+  songs,
+  fetchSongsData,
+  onChangeSearchQuery,
+  onChangePageNumber,
+  totalCount,
+  query,
+}) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
   useEffect(() => {
-    !loading && !photos && fetchSongsData();
-    photos && setPhotosList(photos);
-  }, [photos]);
+    !loading && !songs && fetchSongsData();
+    songs && setSongssList(songs);
+  });
 
-  const [photosList, setPhotosList] = useState(photos);
+  const onSearch = searchQuery => {
+    onChangeSearchQuery(searchQuery);
+  };
+  const [songsList, setSongssList] = useState(songs);
 
   const loadMoreData = () => {
-    setPhotosList([...photosList, ...photos]);
+    const page = query.page + 1;
+    console.log('page', page);
+    if (!loading) {
+      onChangePageNumber(page);
+    }
   };
   const columns = [
     {
       key: 'checkbox',
       label: '',
+      width: '50px',
+      minWidth: '50px',
+    },
+    {
+      key: 'id',
+      label: 'ID',
       width: '50px',
       minWidth: '50px',
     },
@@ -108,22 +132,20 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
               <h2>
                 <FormattedMessage {...messages.tableHeader} />
               </h2>
-              {!loading && photosList ? (
-                <Button handleRoute={loadMoreData}>
-                  <FormattedMessage {...messages.loadMoreData} />
-                </Button>
-              ) : (
-                ''
-              )}
             </HeaderWrapper>
             <div className="table-container">
-              {!loading && photosList && photosList.length ? (
+              {loading != null && songsList ? (
                 <DataTable
-                  data={photosList}
+                  data={songsList}
                   columns={columns}
+                  totalCount={totalCount}
                   onRowClick={onRowClickHandler}
+                  onSearch={onSearch}
+                  loadMoreRows={loadMoreData}
+                  loading={loading}
                   onSelectRow={onSelectRowHandler}
-                  // layout="fixed" 
+                  query={query}
+                  // layout="fixed"
                 />
               ) : (
                 <div className="table-loader">
@@ -141,13 +163,15 @@ export function HomePage({ loading, error, photos, fetchSongsData }) {
 HomePage.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-  photos: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
+  songs: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 const mapStateToProps = createStructuredSelector({
-  photos: makeSelectSongs(),
+  songs: makeSelectSongs(),
+  totalCount: makeSelectTotal(),
   loading: makeSelectSongsLoading(),
   error: makeSelectSongsError(),
+  query: makeSelectQuery(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -155,6 +179,8 @@ export function mapDispatchToProps(dispatch) {
     fetchSongsData: () => {
       dispatch(fetchSongs());
     },
+    onChangeSearchQuery: value => dispatch(onChangeQuery(value)),
+    onChangePageNumber: value => dispatch(onChangePage(value)),
   };
 }
 

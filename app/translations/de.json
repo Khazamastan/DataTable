@@ -1,5 +1,4 @@
 {
   "boilerplate.containers.HomePage.home.tableHeader": "Component datatabel!",
-  "boilerplate.containers.HomePage.home.filter": "Filter!",
-  "boilerplate.containers.HomePage.home.loadMoreData": "LADEN MEER GEGEVENS"
+  "boilerplate.containers.HomePage.home.filter": "Filter!"
 }

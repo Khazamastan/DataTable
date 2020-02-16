@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /**
  * Parses the JSON returned by a network request
  *
@@ -9,7 +10,10 @@ function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  return response.json();
+  return response.json().then(res => ({
+    data: res,
+    count: parseInt(response.headers.get('X-Total-Count')),
+  }));
 }
 
 /**

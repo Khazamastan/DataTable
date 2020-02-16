@@ -5,26 +5,38 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectPhotos = state => state.photos || initialState;
+const selectSongs = state => state.songs || initialState;
 
 const selectRouter = state => state.router;
 
 const makeSelectSongsLoading = () =>
   createSelector(
-    selectPhotos,
-    photosState => photosState.loading,
+    selectSongs,
+    songsState => songsState.loading,
   );
 
 const makeSelectSongsError = () =>
   createSelector(
-    selectPhotos,
-    photosState => photosState.error,
+    selectSongs,
+    songsState => songsState.error,
+  );
+
+const makeSelectTotal = () =>
+  createSelector(
+    selectSongs,
+    songsState => songsState.total,
   );
 
 const makeSelectSongs = () =>
   createSelector(
-    selectPhotos,
-    photosState => photosState.songs,
+    selectSongs,
+    songsState => songsState.songs,
+  );
+
+const makeSelectQuery = () =>
+  createSelector(
+    selectSongs,
+    songsState => songsState.query,
   );
 
 const makeSelectLocation = () =>
@@ -34,9 +46,11 @@ const makeSelectLocation = () =>
   );
 
 export {
-  selectPhotos,
+  selectSongs,
   makeSelectSongsLoading,
   makeSelectSongsError,
+  makeSelectTotal,
   makeSelectSongs,
   makeSelectLocation,
+  makeSelectQuery,
 };
