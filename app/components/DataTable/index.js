@@ -9,6 +9,7 @@ import TableWrapper from './TableWrapper';
 import SearchWrapper from './SearchWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
+import { debounce } from "lodash"
 
 const Table = ({
   columns,
@@ -78,7 +79,7 @@ const Table = ({
   const setVirtualizerRef = ref => {
     tableVirtualizerRef = ref;
   };
-  const debounceSearch = _.debounce(onSearch, 300);
+  const debounceSearch = debounce(onSearch, 300);
   const onChangeQuery = $event => {
     const searchQuery = $event.target.value;
     debounceSearch(searchQuery);
