@@ -78,10 +78,10 @@ const Table = ({
   const setVirtualizerRef = ref => {
     tableVirtualizerRef = ref;
   };
+  const debounceSearch = _.debounce(onSearch, 300);
   const onChangeQuery = $event => {
     const searchQuery = $event.target.value;
-    onSearch(searchQuery);
-    refreshTableView();
+    debounceSearch(searchQuery);
   };
 
   const onChangeSortField = field => {
@@ -115,7 +115,6 @@ const Table = ({
         <Button handleRoute={() => {}}>Filter</Button>
         <Input
           type="text"
-          value={query.search}
           placeholder="Search here"
           className="search"
           onChange={onChangeQuery}

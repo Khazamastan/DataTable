@@ -44,6 +44,7 @@ const TableBody = ({
         </div>
       );
     }
+
     const isSelected = selectedRowIds[rowData.id];
     const rowClickHandler = $event => {
       $event.stopPropagation();
@@ -83,14 +84,9 @@ const TableBody = ({
     return 0;
   };
 
-  let remoteRowCount = 0;
-  if (data) {
-    if (data && totalCount <= data.length) {
-      remoteRowCount = totalCount;
-    } else {
-      remoteRowCount = data.length + 1;
-    }
-  }
+  const hasNextPage = data.length < totalCount;
+  const rowCount = hasNextPage ? data.length + 1 : data.length;
+
   const isRowLoaded = ({ index }) => !loading && !!data[index];
 
   return (
@@ -104,7 +100,8 @@ const TableBody = ({
                   <InfiniteLoader
                     isRowLoaded={isRowLoaded}
                     loadMoreRows={loadMoreRows}
-                    rowCount={remoteRowCount}
+                    minimumBatchSize={100}
+                    rowCount={rowCount}
                   >
                     {({ onRowsRendered }) => (
                       <List
@@ -112,7 +109,7 @@ const TableBody = ({
                         ref={ref => passVirtualizerRef(ref)}
                         height={height}
                         rowHeight={60}
-                        rowCount={remoteRowCount}
+                        rowCount={rowCount}
                         onRowsRendered={onRowsRendered}
                         isScrolling={isScrolling}
                         overscanRowCount={20}

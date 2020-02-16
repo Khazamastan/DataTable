@@ -65,8 +65,7 @@ export function HomePage({
 
   const loadMoreData = () => {
     const page = query.page + 1;
-    console.log('page', page);
-    if (!loading) {
+    if (!loading && songs.length) {
       onChangePageNumber(page);
     }
   };
