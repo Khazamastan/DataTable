@@ -9,9 +9,10 @@ import { Provider } from 'react-redux';
 import LanguageProvider from 'containers/LanguageProvider';
 import DataTable from 'components/DataTable';
 import { browserHistory } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import { debounce } from 'lodash';
 import { translationMessages } from '../../../i18n';
 import configureStore from '../../../configureStore';
-
 const sampleState = {
   data: [],
   columns: [

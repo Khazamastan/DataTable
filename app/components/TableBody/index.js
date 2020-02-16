@@ -84,10 +84,10 @@ const TableBody = ({
     return 0;
   };
 
-  const hasNextPage = data.length < totalCount;
-  const rowCount = hasNextPage ? data.length + 1 : data.length;
-  const loadMoreItems =
-    !loading && data.length >= 100  ? loadMoreRows : () => {};
+  const dataLength = (data && data.length) || 0;
+  const hasNextPage = dataLength < totalCount;
+  const rowCount = hasNextPage ? dataLength + 1 : dataLength;
+  const loadMoreItems = !loading && dataLength >= 100 ? loadMoreRows : () => {};
   const isRowLoaded = ({ index }) => !loading && !!data[index];
 
   return (

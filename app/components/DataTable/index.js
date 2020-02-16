@@ -5,12 +5,11 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 import { createSorter } from 'utils/sort';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import TableWrapper from './TableWrapper';
 import SearchWrapper from './SearchWrapper';
 import TableHead from '../TableHead';
 import TableBody from '../TableBody';
-import { debounce } from "lodash"
-
 const Table = ({
   columns,
   data,
@@ -79,7 +78,9 @@ const Table = ({
   const setVirtualizerRef = ref => {
     tableVirtualizerRef = ref;
   };
-  const debounceSearch = debounce(onSearch, 300);
+  const debounceSearch = _.debounce(function(value) {
+    onSearch(value);
+  }, 300);
   const onChangeQuery = $event => {
     const searchQuery = $event.target.value;
     debounceSearch(searchQuery);
