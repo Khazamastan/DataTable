@@ -86,7 +86,8 @@ const TableBody = ({
 
   const hasNextPage = data.length < totalCount;
   const rowCount = hasNextPage ? data.length + 1 : data.length;
-
+  const loadMoreItems =
+    !loading && data.length >= 100  ? loadMoreRows : () => {};
   const isRowLoaded = ({ index }) => !loading && !!data[index];
 
   return (
@@ -99,7 +100,7 @@ const TableBody = ({
                 <div ref={registerChild}>
                   <InfiniteLoader
                     isRowLoaded={isRowLoaded}
-                    loadMoreRows={loadMoreRows}
+                    loadMoreRows={loadMoreItems}
                     minimumBatchSize={100}
                     rowCount={rowCount}
                   >
