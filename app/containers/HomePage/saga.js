@@ -13,7 +13,7 @@ import { makeSelectQuery } from './selectors';
  */
 export function* getSongs() {
   const query = yield select(makeSelectQuery());
-  const requestURL = `http://localhost:3004/songs?q=${
+  const requestURL = `https://quiet-citadel-04319.herokuapp.com/songs?q=${
     query.search
   }&_start=${query.page * 100}&_end=${(query.page + 1) * 100}`;
 
